@@ -24,32 +24,43 @@ export class VacancyService {
   }
 
   async update(id: number, updateVacancyDto: UpdateVacancyDto) {
-    const user = await this.vacancyRepository.findOne({
+    const vacancy = await this.vacancyRepository.findOne({
       where: { id },
     });
 
-    if (!user) {
-      throw new NotFoundException('User not found');
+    if (!vacancy) {
+      throw new NotFoundException('Vacancy not found');
     }
 
     return await this.vacancyRepository.update(id, updateVacancyDto);
   }
 
-  async findAllWithPagination(page: number, limit: number, sort: string) {
-    console.log(sort);
+  async findAllWithPagination(
+    page: number,
+    limit: number,
+    sort: string,
+    userName: string | null,
+  ) {
+    console.log(userName);
     const vacancies = await this.vacancyRepository.find({
       select: {
         user: {
           name: true,
         },
       },
-      relations: ['user'],
+      relations: { user: true },
+      where: {
+        user: {
+          name: userName,
+        },
+      },
       order: {
         [sort]: 'ASC',
       },
       take: limit,
       skip: (page - 1) * limit,
     });
+    console.log(vacancies);
 
     return vacancies;
   }

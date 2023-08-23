@@ -30,7 +30,8 @@ export class VacancyController {
     @Query('page') page: number = 1,
     @Query('limit') limit: number = 3,
     @Query('sort') sort: string = 'createdAt',
+    @Query('userName') userName: string | null = null,
   ) {
-    return this.vacancyService.findAllWithPagination(+page, +limit, sort);
+    return this.vacancyService.findAllWithPagination(+page, +limit, sort, userName);
   }
 }

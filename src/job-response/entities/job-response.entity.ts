@@ -14,7 +14,7 @@ export class JobResponse {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ default: false })
   viewed: boolean;
 
   @ManyToOne(() => Vacancy, (vacancy) => vacancy.jobResponses)
