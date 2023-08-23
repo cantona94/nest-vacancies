@@ -41,7 +41,6 @@ export class VacancyService {
     sort: string,
     userName: string | null,
   ) {
-    console.log(userName);
     const vacancies = await this.vacancyRepository.find({
       select: {
         user: {
@@ -60,7 +59,6 @@ export class VacancyService {
       take: limit,
       skip: (page - 1) * limit,
     });
-    console.log(vacancies);
 
     return vacancies;
   }
