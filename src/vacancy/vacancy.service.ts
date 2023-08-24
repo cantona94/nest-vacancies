@@ -16,8 +16,8 @@ export class VacancyService {
     const newVacancy = {
       user: { id: +createVacancyDto.user },
       name: createVacancyDto.name,
-      description: createVacancyDto.description,
-      arraySkills: createVacancyDto.arraySkills,
+      description: createVacancyDto.description || '',
+      arraySkills: createVacancyDto.arraySkills || [],
     };
 
     return await this.vacancyRepository.save(newVacancy);
